@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\CategoryResource\Pages;
+namespace App\Filament\Resources\GenreResource\Pages;
 
-use App\Filament\Resources\CategoryResource;
+
+use App\Filament\Resources\GenreResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 
-class EditCategory extends EditRecord
+class EditGenre extends EditRecord
 {
-    protected static string $resource = CategoryResource::class;
+    protected static string $resource = GenreResource::class;
 
     protected function getHeaderActions(): array
     {

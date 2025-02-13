@@ -15,7 +15,6 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable();
             $table->text('content');
             $table->integer('status')->default(1);
-            $table->foreignId('genre_id')->constrained('genres');
             $table->foreignId('game_id')->constrained('games');
             $table->timestamps(0);
         });

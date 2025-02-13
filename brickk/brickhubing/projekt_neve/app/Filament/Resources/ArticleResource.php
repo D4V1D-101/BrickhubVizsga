@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ArticleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ArticleResource\RelationManagers;
+use App\Models\Genres;
 
 class ArticleResource extends Resource
 {
@@ -31,7 +32,7 @@ class ArticleResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')->required()->placeholder('Title'),
-                Select::make('category_id')->label('Category')->options(Category::all()->pluck('name','id')),
+                Select::make('category_id')->label('Category')->options(Genres::all()->pluck('name','id')),
                 TextInput::make('author')->required()->placeholder('Author'),
                 TextInput::make('image')->url()->label('image')->placeholder('Enter URL'),
                 RichEditor::make('content')->columnSpan(2),

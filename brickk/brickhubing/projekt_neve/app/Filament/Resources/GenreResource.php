@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
-use App\Models\Category;
+use App\Models\Genres;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -18,9 +18,9 @@ use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 
-class CategoryResource extends Resource
+class GenreResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Genres::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
@@ -70,8 +70,7 @@ class CategoryResource extends Resource
     {
         return [
             'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+
         ];
     }
 }
