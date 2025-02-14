@@ -18,7 +18,7 @@ use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 
-class GenreResource extends Resource
+class CategoryResource extends Resource
 {
     protected static ?string $model = Genres::class;
 
@@ -70,7 +70,8 @@ class GenreResource extends Resource
     {
         return [
             'index' => Pages\ListCategories::route('/'),
-
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }

@@ -3,13 +3,13 @@
 namespace App\Filament\Resources\CategoryResource\Pages;
 
 use App\Filament\Resources\CategoryResource;
-use App\Filament\Resources\GenreResource;
+use App\Filament\Resources\CateorygResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCategories extends ListRecords
 {
-    protected static string $resource = GenreResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function getHeaderActions(): array
     {

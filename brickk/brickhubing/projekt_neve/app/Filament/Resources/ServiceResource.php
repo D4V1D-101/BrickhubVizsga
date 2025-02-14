@@ -7,6 +7,7 @@ use App\Filament\Resources\ServiceResource\RelationManagers;
 use App\Models\Games;
 use App\Models\Service;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -35,18 +36,26 @@ class ServiceResource extends Resource
                 ->required()
                 ->maxLength(35),
             RichEditor::make('description')->columnSpan(2),
+            DatePicker::make('release_date')->format('Y/m/d')->label('Release Date'),
+            TextInput::make('donwload_link')->url()->label('Download Link')->placeholder('Enter URL')->columnSpan(2),
+            TextInput::make('image_path')->url()->label('Image Path')->placeholder('Enter URL'),
             Select::make('status')->options([
                 1 => 'Active',
                 0 => 'Block'
             ]),
             Select::make('publisher_id')
                 ->label('Publisher')
-                ->relationship('publisher', 'name') // A 'publisher' kapcsolat a Members modellben
+                ->relationship('publisher', 'name')
                 ->required(),
             Select::make('developer_id')
                 ->label('Developer')
-                ->relationship('developer', 'name') // A 'developer' kapcsolat a Members modellben
+                ->relationship('developer', 'name')
                 ->required(),
+
+
+
+
+
         ]);
 }
     public static function table(Table $table): Table

@@ -20,12 +20,13 @@ use App\Filament\Resources\ArticleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Genres;
+use App\Models\User;
 
 class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationIcon = 'heroicon-o-backward';
 
     public static function form(Form $form): Form
     {
@@ -36,6 +37,10 @@ class ArticleResource extends Resource
                 TextInput::make('author')->required()->placeholder('Author'),
                 TextInput::make('image')->url()->label('image')->placeholder('Enter URL'),
                 RichEditor::make('content')->columnSpan(2),
+                Select::make('user_id') // Hozzáadjuk a user_id mezőt
+                ->label('User ') // A legördülő menü címe
+                ->options(User::all()->pluck('name', 'id')) // Lekérjük a felhasználók nevét és id-ját
+                ->required(), // Megadhatjuk, hogy kötelező legyen
                 Select::make('status')->options([
                     1 => 'Active',
                     0 => 'Block'

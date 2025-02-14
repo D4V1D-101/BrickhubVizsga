@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\GenreResource\Pages;
-use App\Filament\Resources\GenreResource;
-use App\Models\Genres;
+namespace App\Filament\Resources\CategoryResource\Pages;
+
+use App\Filament\Resources\CategoryResource;
+use App\Filament\Resources\CateorygResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateGenre extends CreateRecord
+class CreateCategory extends CreateRecord
 {
-    protected static string $resource = GenreResource::class;
+    protected static string $resource = CategoryResource::class;
 
     protected function getRedirectUrl(): string
     {
