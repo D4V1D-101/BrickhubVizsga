@@ -23,7 +23,7 @@ use App\Livewire\ShowTeamPage;
 
 Route::get('/', ShowHome::class)->name('home');
 Route::get('/news', ShowServicePage::class)->name('servicesPage');
-Route::get('/new/{title}', ShowService::class)->name('servicePage');
+Route::get('/new/{name}', ShowService::class)->name('servicePage');
 Route::get('/team', ShowTeamPage::class)->name('teamPage');
 Route::get('/blog', ShowBlog::class)->name('blog');
 Route::get('/blog/{id}', BlogDetail::class)->name('blogDetail');
