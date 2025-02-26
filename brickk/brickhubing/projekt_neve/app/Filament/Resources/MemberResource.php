@@ -47,6 +47,8 @@ class MemberResource extends Resource
                 TextColumn::make('name'),
                 TextColumn::make('designation'),
                 ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
             ])
             ->filters([
                 //

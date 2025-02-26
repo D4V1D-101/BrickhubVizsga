@@ -35,6 +35,7 @@ class ServiceResource extends Resource
                 ->label('Short Description')
                 ->required()
                 ->maxLength(35),
+            TextInput::make('exe_name')->label('Exe Name')->required(),
             RichEditor::make('description')->columnSpan(2),
             DatePicker::make('release_date')->format('Y/m/d')->label('Release Date'),
             TextInput::make('donwload_link')->url()->label('Download Link')->placeholder('Enter URL')->columnSpan(2),
