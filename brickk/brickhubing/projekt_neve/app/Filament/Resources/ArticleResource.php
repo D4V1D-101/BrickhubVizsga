@@ -33,14 +33,9 @@ class ArticleResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')->required()->placeholder('Title'),
-                Select::make('category_id')->label('Category')->options(Genres::all()->pluck('name','id')),
                 TextInput::make('author')->required()->placeholder('Author'),
                 TextInput::make('image')->url()->label('image')->placeholder('Enter URL'),
                 RichEditor::make('content')->columnSpan(2),
-                Select::make('user_id') // Hozzáadjuk a user_id mezőt
-                ->label('User ') // A legördülő menü címe
-                ->options(User::all()->pluck('name', 'id')) // Lekérjük a felhasználók nevét és id-ját
-                ->required(), // Megadhatjuk, hogy kötelező legyen
                 Select::make('status')->options([
                     1 => 'Active',
                     0 => 'Block'
