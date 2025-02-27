@@ -47,9 +47,8 @@
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('blog') }}">News</a></li>
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('faqs') }}">FAQ</a></li>
 				</ul>
-				<a href="#!" class="btn btn-outline-primary">Register</a>
-
-                <a href="#!" class="btn btn-outline-primary">Login</a>
+				<a href="#!" class="btn btn-outline-primary authbutton me-2">Register</a>
+                <a href="#!" class="btn btn-outline-primary authbutton">Login</a>
 			</div>
 		</div>
 	</nav>

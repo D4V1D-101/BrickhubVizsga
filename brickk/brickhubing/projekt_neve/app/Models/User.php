@@ -10,19 +10,27 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
 
-    const ROLEADMIN = 'ADMIN';
-    const ROLEUSER = 'USER';
-
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_USER = 'USER';
     const ROLES =
     [
-        self::ROLEADMIN => 'Admin',
-        self::ROLEUSER => 'User',
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_USER => 'User',
     ];
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->can('view-admin', User::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +39,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'username',
         'email',
         'password',
         'role'

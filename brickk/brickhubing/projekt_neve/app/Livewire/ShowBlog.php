@@ -24,17 +24,14 @@ class ShowBlog extends Component
             }
             
             $articles = Article::orderBy('created_at','DESC')
-                        ->where('category_id',$category->id)
-                        ->where('status',1)
+                        ->where('id',$category->id)
                         ->paginate($paginate);
         } else{
             $articles = Article::orderBy('created_at','DESC')
-            ->where('status',1)
             ->paginate($paginate);
         }
 
         $latestarticles = Article::orderBy('created_at','DESC')
-        ->where('status',1)
         ->get()
         ->take(3);
 

@@ -32,19 +32,9 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->visibleOn('create')
-                    ->maxLength(255),
-                TextInput::make('role')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('USER'),
-                Select::make('status')->options([
-                        1 => 'Active',
-                        0 => 'Block'
-                    ])
+                Forms\Components\Select::make('role')
+                    ->options(User::ROLES)
+                    ->required(),
             ]);
     }
 
@@ -54,25 +44,6 @@ class UserResource extends Resource
             ->columns([
 
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('active_status')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('avatar')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('dark_mode')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('messenger_color')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
                     ->searchable(),

@@ -22,10 +22,10 @@ use App\Livewire\ShowTeamPage;
 */
 
 Route::get('/', ShowHome::class)->name('home');
-Route::get('/news', ShowServicePage::class)->name('servicesPage');
-Route::get('/new/{name}', ShowService::class)->name('servicePage');
+Route::get('/games', ShowServicePage::class)->name('servicesPage');
+Route::get('/game/{id}', ShowService::class)->name('servicePage');
 Route::get('/team', ShowTeamPage::class)->name('teamPage');
-Route::get('/blog', ShowBlog::class)->name('blog');
-Route::get('/blog/{id}', BlogDetail::class)->name('blogDetail');
+Route::get('/news', ShowBlog::class)->name('blog');
+Route::get('/news/{id}', BlogDetail::class)->name('blogDetail');
 Route::get('/faqs', ShowFaqPage::class)->name('faqs');
 Route::get('/page/{id}', ShowPage::class)->name('page');

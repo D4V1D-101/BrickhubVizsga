@@ -35,8 +35,8 @@ class ArticleResource extends Resource
         ->schema([
             TextInput::make('title')->required()->placeholder('Title'),
             TextInput::make('author')->required()->placeholder('Author'),
-            TextInput::make('image')->url()->label('Image')->placeholder('Enter URL'),
             RichEditor::make('content')->columnSpan(2),
+            TextInput::make('image')->url()->label('Image')->placeholder('Enter URL')->columnSpan(2),
             Select::make('game_id')
                 ->label('Game')
                 ->options(Games::all()->pluck('name', 'id'))
