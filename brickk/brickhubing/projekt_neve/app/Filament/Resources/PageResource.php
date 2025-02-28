@@ -31,10 +31,7 @@ class PageResource extends Resource
                 TextInput::make('title')->required()->placeholder('Title'),
                 RichEditor::make('content')->columnSpan(2),
                 TextInput::make('image')->url()->label('Image')->placeholder('Enter URL')->columnSpan(2),
-                Select::make('status')->options([
-                    1 => 'Active',
-                    0 => 'Block'
-                ])->default(1)->required()
+
             ]);
     }
 

@@ -12,6 +12,7 @@ class Genres extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'slug', 'status'];
+    public $timestamps = false;
 
     public function articles()
     {

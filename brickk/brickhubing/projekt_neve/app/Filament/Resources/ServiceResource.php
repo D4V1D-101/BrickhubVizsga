@@ -40,10 +40,6 @@ class ServiceResource extends Resource
             DatePicker::make('release_date')->format('Y/m/d')->label('Release Date'),
             TextInput::make('donwload_link')->url()->label('Download Link')->placeholder('Enter URL')->columnSpan(2),
             TextInput::make('image_path')->url()->label('Image Path')->placeholder('Enter URL'),
-            Select::make('status')->options([
-                1 => 'Active',
-                0 => 'Block'
-            ]),
             Select::make('publisher_id')
                 ->label('Publisher')
                 ->relationship('publisher', 'name')

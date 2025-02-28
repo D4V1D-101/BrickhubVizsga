@@ -29,10 +29,6 @@ class FaqResource extends Resource
             ->schema([
                 TextInput::make('question')->placeholder('Question')->required(),
                 RichEditor::make('answer')->required()->columnSpan(2),
-                Select::make('status')->options([
-                    1 => 'Active',
-                    0 => 'Block'
-                ])->default(1)->required()
 
             ]);
     }

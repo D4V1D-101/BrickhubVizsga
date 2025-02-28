@@ -32,10 +32,7 @@ class CategoryResource extends Resource
                 ->live(onBlur: true)
                 ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')->required()->placeholder('Slug'),
-                Select::make('status')->options([
-                    1 => 'Active',
-                    0 => 'Block'
-                ])->default(1)
+                
             ]);
     }
 

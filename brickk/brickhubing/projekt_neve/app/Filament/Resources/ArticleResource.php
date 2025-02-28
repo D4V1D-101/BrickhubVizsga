@@ -55,10 +55,7 @@ class ArticleResource extends Resource
                     })->pluck('name', 'id');
                 })
                 ->required(),
-            Select::make('status')->options([
-                1 => 'Active',
-                0 => 'Block'
-            ])->default(1)
+           
         ]);
 }
     public static function table(Table $table): Table
@@ -67,7 +64,7 @@ class ArticleResource extends Resource
             ->columns([
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('author'),
-                TextColumn::make('game.name')->label('Game')->searchable(), 
+                TextColumn::make('game.name')->label('Game')->searchable(),
             ])
             ->filters([
                 //

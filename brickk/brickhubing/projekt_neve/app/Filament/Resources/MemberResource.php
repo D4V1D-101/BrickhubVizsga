@@ -33,10 +33,7 @@ class MemberResource extends Resource
                 TextInput::make('git_url')->url()->label('GitHub URL')->placeholder('Enter URL'),
                 TextInput::make('linkedin_url')->url()->label('LinkedIn URL')->placeholder('Enter URL'),
                 TextInput::make('image')->url()->label('image')->placeholder('Enter URL'),
-                Select::make('status')->options([
-                    true => 'Active',
-                    false => 'Block'
-                ])->default(true)
+              
             ]);
     }
 
