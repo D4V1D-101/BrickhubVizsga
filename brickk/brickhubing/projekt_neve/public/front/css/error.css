@@ -1,0 +1,20 @@
+@font-face {
+    font-family:"pixelFont";
+    src: url(../isaacFont/Daydream.ttf);
+ }
+body {
+    font-family: "pixelFont";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    margin: 0;
+    background-color: #f8f9fa; /* Light background color */
+    font-family: Arial, sans-serif; /* Font style */
+}
+h1 {
+    color: #dc3545; /* Red color for error message */
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center the text */
+}
