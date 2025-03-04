@@ -1,15 +1,18 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+
+
+require __DIR__.'/auth.php';
 use App\Livewire\BlogDetail;
 use App\Livewire\ShowBlog;
 use App\Livewire\ShowFaqPage;
-use Illuminate\Support\Facades\Route;
 use App\Livewire\ShowHome;
 use App\Livewire\ShowPage;
 use App\Livewire\ShowService;
 use App\Livewire\ShowServicePage;
 use App\Livewire\ShowTeamPage;
-
+use Filament\Facades\Filament;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -47,8 +47,16 @@
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('blog') }}">News</a></li>
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('faqs') }}">FAQ</a></li>
 				</ul>
-				<a href="#!" class="btn btn-outline-primary authbutton me-2">Register</a>
-                <a href="#!" class="btn btn-outline-primary authbutton">Login</a>
+				@if (Auth::check())
+					<form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+						@csrf
+						<button type="submit" class="btn btn-outline-primary authbutton">Logout</button>
+						<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Admin</a>
+					</form>
+				@else
+					<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Login</a>
+					<a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton me-2">Register</a>
+				@endif
 			</div>
 		</div>
 	</nav>
