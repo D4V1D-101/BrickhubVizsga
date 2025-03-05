@@ -30,16 +30,33 @@ class ServiceResource extends Resource
     return $form
         ->schema([
             TextInput::make('name')->required(),
-            TextInput::make('icon_class'),
             TextInput::make('short_desc')
                 ->label('Short Description')
                 ->required()
-                ->maxLength(35),
-            TextInput::make('exe_name')->label('Exe Name')->required(),
-            RichEditor::make('description')->columnSpan(2),
-            DatePicker::make('release_date')->format('Y/m/d')->label('Release Date'),
-            TextInput::make('donwload_link')->url()->label('Download Link')->placeholder('Enter URL')->columnSpan(2),
-            TextInput::make('image_path')->url()->label('Image Path')->placeholder('Enter URL'),
+                ->maxLength(30)
+                ->helperText('Max 30 characters'),
+            TextInput::make('exe_name')->label('Exe Name')->columnSpan(2)->required(),
+            RichEditor::make('description')
+            ->required()
+            ->toolbarButtons([
+                'bold',
+                'italic',
+                'underline',
+                'strike',
+                'bulletList',
+                'h2',
+                'h3',
+                'orderedList',
+                'heading',
+                'blockquote',
+                'undo',
+                'redo',
+                'codeBlock',
+                'align',
+            ])->columnSpan(2),
+            DatePicker::make('release_date')->format('Y/m/d')->label('Release Date')->columnSpan(2)->required(),
+            TextInput::make('donwload_link')->url()->label('Download Link')->placeholder('Enter URL')->columnSpan(2)->required(),
+            TextInput::make('image_path')->url()->label('Image Path')->placeholder('Enter URL')->columnSpan(2)->required(),
             Select::make('publisher_id')
                 ->label('Publisher')
                 ->relationship('publisher', 'name')

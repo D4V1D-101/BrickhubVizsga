@@ -27,8 +27,25 @@ class FaqResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('question')->placeholder('Question')->required(),
-                RichEditor::make('answer')->required()->columnSpan(2),
+                TextInput::make('question')->placeholder('Question')->columnSpan(2)->required(),
+                RichEditor::make('content')
+                ->required()
+                ->toolbarButtons([
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strike',
+                    'bulletList',
+                    'h2',
+                    'h3',
+                    'orderedList',
+                    'heading',
+                    'blockquote',
+                    'undo',
+                    'redo',
+                    'codeBlock',
+                    'align',
+                ])->columnSpan(2),
 
             ]);
     }

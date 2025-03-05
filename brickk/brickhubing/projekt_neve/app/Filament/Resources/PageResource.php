@@ -28,8 +28,25 @@ class PageResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->required()->placeholder('Title'),
-                RichEditor::make('content')->columnSpan(2),
+                TextInput::make('title')->required()->placeholder('Title')->columnSpan(2),
+                RichEditor::make('content')
+                ->required()
+                ->toolbarButtons([
+                    'bold',
+                    'italic',
+                    'underline',
+                    'strike',
+                    'bulletList',
+                    'h2',
+                    'h3',
+                    'orderedList',
+                    'heading',
+                    'blockquote',
+                    'undo',
+                    'redo',
+                    'codeBlock',
+                    'align',
+                ])->columnSpan(2),
                 TextInput::make('image')->url()->label('Image')->placeholder('Enter URL')->columnSpan(2),
 
             ]);

@@ -35,9 +35,33 @@ class ArticleResource extends Resource
         ->schema([
             TextInput::make('title')->required()->placeholder('Title'),
             TextInput::make('author')->required()->placeholder('Author'),
-            RichEditor::make('content')->columnSpan(2),
-            TextInput::make('image')->url()->label('Image')->placeholder('Enter URL')->columnSpan(2),
+            RichEditor::make('content')
+            ->required()
+            ->toolbarButtons([
+                'bold',
+                'italic',
+                'underline',
+                'strike',
+                'bulletList',
+                'h2',
+                'h3',
+                'orderedList',
+                'heading',
+                'blockquote',
+                'undo',
+                'redo',
+                'codeBlock',
+                'align',
+            ])->columnSpan(2),
+            TextInput::make('image')
+            ->url()
+            ->label('Image')
+            ->placeholder('Enter URL')
+            ->columnSpan(2)
+            ->rules('required', 'url', 'ends_with:.jpg,.jpeg,.png')
+            ->helperText('Please enter a valid image URL ending with .jpg, .jpeg, or .png.'),
             Select::make('game_id')
+                ->required()
                 ->label('Game')
                 ->options(Games::all()->pluck('name', 'id'))
                 ->reactive()
@@ -55,7 +79,7 @@ class ArticleResource extends Resource
                     })->pluck('name', 'id');
                 })
                 ->required(),
-           
+
         ]);
 }
     public static function table(Table $table): Table
