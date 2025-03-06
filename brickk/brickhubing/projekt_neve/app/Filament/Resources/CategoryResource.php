@@ -31,8 +31,8 @@ class CategoryResource extends Resource
                 TextInput::make('name')->required()->placeholder('Name')
                 ->live(onBlur: true)
                 ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')->required()->placeholder('Slug'),
-                
+                TextInput::make('slug')->required()->placeholder('Slug')->disabled(),
+
             ]);
     }
 

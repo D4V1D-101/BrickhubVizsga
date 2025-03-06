@@ -34,6 +34,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('role')
                     ->options(User::ROLES)
+                    ->columnSpan(2)
                     ->required(),
             ]);
     }

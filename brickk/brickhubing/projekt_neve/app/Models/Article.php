@@ -11,6 +11,10 @@ class Article extends Model
     protected $fillable = ['title', 'image', 'author', 'content', 'status', 'game_id'];
     public function game()
     {
-        return $this->belongsTo(Games::class, 'game_id'); 
+        return $this->belongsTo(Games::class, 'game_id');
+    }
+    public function getImageAttribute($value)
+    {
+        return $value ?? 'https://i.postimg.cc/HsZDgXD8/NoImage.webp';
     }
 }
