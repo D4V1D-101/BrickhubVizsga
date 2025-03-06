@@ -61,6 +61,13 @@ return [
 
     'providers' => [
         'users' => [
+            'driver' => 'custom', // Itt változtasd meg 'eloquent'-ről 'custom'-ra
+            'model' => App\Models\User::class,
+        ],
+    ],
+
+    /* 'providers' => [
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
@@ -69,7 +76,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+    ], */
 
     /*
     |--------------------------------------------------------------------------

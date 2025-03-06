@@ -48,7 +48,7 @@
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('faqs') }}">FAQ</a></li>
 				</ul>
 				@if (Auth::check())
-					<form method="POST" action="{{ route('filament.admin.auth.logout') }}">
+					<form method="GET" action="{{ route('user.logout') }}">
 						@csrf
 						<button type="submit" class="btn btn-outline-primary authbutton">Logout</button>
 						<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Admin</a>

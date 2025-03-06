@@ -61,24 +61,24 @@ class ArticleResource extends Resource
             ->rules('required', 'url', 'ends_with:.jpg,.jpeg,.png')
             ->helperText('Please enter a valid image URL ending with .jpg, .jpeg, or .png.'),
             Select::make('game_id')
-                ->required()
-                ->label('Game')
-                ->options(Games::all()->pluck('name', 'id'))
-                ->reactive()
-                ->afterStateUpdated(function (callable $set, $state) {
-            $set('genre_id', null); // Reset genre selection
-                }),
+            ->required()
+            ->label('Game')
+            ->options(Games::all()->pluck('name', 'id'))
+            ->reactive()
+            ->afterStateUpdated(function (callable $set, $state) {
+                $set('genre_id', null); // Reset genre selection
+            }),
             Select::make('genre_id')
-                ->label('Genre')
-                ->options(function (callable $get) {
-                    $gameId = $get('game_id');
-                    return Genres::whereIn('id', function ($query) use ($gameId) {
-                        $query->select('genre_id')
-                            ->from('game_genres')
-                            ->where('game_id', $gameId);
-                    })->pluck('name', 'id');
-                })
-                ->required(),
+            ->label('Genre')
+            ->options(function (callable $get) {
+                $gameId = $get('game_id');
+                return Genres::whereIn('id', function ($query) use ($gameId) {
+                    $query->select('genre_id')
+                        ->from('game_genres')
+                        ->where('game_id', $gameId);
+                })->pluck('name', 'id');
+            })
+            ->required(),
 
         ]);
 }

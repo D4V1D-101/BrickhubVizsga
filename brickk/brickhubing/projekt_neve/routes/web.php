@@ -11,6 +11,7 @@ use App\Livewire\ShowService;
 use App\Livewire\ShowServicePage;
 use App\Livewire\ShowTeamPage;
 use Filament\Facades\Filament;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', ShowHome::class)->name('home');
 Route::get('/games', ShowServicePage::class)->name('servicesPage');
@@ -20,3 +21,9 @@ Route::get('/news', ShowBlog::class)->name('blog');
 Route::get('/news/{id}', BlogDetail::class)->name('blogDetail');
 Route::get('/faqs', ShowFaqPage::class)->name('faqs');
 Route::get('/page/{id}', ShowPage::class)->name('page');
+Route::match(['get', 'post'], '/user-logout', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect('/');
+})->name('user.logout');

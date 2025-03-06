@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\FilamentUser ;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,14 +14,67 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
-    const ROLES =
-    [
+    const ROLES = [
         self::ROLE_ADMIN => 'Admin',
-        self::ROLE_USER => 'User',
+        self::ROLE_USER => 'User ',
     ];
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role'
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
+
+    public function getRememberToken()
+    {
+        return $this->tokens()
+            ->where('expiry_date', '>', now())
+            ->value('token');
+    }
+
+    public function setRememberToken($value)
+    {
+        $existingToken = $this->tokens()
+            ->where('device', 0) // Vagy a megfelelő device érték
+            ->where('expiry_date', '>', now())
+            ->first();
+
+        if ($existingToken) {
+            $existingToken->update([
+                'token' => $value,
+                'expiry_date' => now()->addDays(7) // Beállíthatod a megfelelő lejárati időt
+            ]);
+        } else {
+            $this->tokens()->create([
+                'device' => 0, // Állítsd be a megfelelő értéket
+                'token' => $value,
+                'expiry_date' => now()->addDays(7) // Beállíthatod a megfelelő lejárati időt
+            ]);
+        }
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'token';
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->can('view-admin', User::class);
@@ -31,36 +84,4 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->role === self::ROLE_ADMIN;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role'
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
 }
