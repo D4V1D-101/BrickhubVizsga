@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Providers\AuthServiceProvider::class,
 
         /*
          * Application Service Providers...

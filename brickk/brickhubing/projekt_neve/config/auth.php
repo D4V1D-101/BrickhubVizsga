@@ -59,12 +59,12 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'custom', // Itt változtasd meg 'eloquent'-ről 'custom'-ra
-            'model' => App\Models\User::class,
-        ],
+ 'providers' => [
+    'users' => [
+        'driver' => 'custom',
+        'model' => App\Models\User::class,
     ],
+],
 
     /* 'providers' => [
         'users' => [

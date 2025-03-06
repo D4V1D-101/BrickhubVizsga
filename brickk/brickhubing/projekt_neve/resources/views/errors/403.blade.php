@@ -9,7 +9,7 @@
     @livewireStyles
 </head>
 <body>
-    <h1>An error occurred during login</h1>
+    <h1>An error occurred during login/register</h1>
     <a href="{{route('home')}}" class="btn btn-outline-primary authbutton me-2">Back to Home Page</a>
 </body>
 </html>

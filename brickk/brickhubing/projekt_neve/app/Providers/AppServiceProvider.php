@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 
@@ -20,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrapFive();
+        // Regisztráljuk a Filament kijelentkezési esemény kezelőjét
+        Event::listen(\Filament\Events\Auth\Logout::class, function ($event) {
+            // Törli a kilépett felhasználó összes tokenjét
+            $event->user->tokens()->delete();
+        });
     }
+
 }

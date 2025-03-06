@@ -3027,6 +3027,7 @@ textarea.form-control-lg {
   color: #dd0000;
   padding: 20px;
   border-color: #0d6efd;
+  margin: 5px;
 }
 .btn-outline-primary {
     background: #cc0e0e;

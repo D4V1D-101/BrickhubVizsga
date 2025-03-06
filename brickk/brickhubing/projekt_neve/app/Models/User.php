@@ -42,11 +42,14 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Token::class);
     }
 
-    public function getRememberToken()
+        public function getRememberToken()
     {
-        return $this->tokens()
+        $token = $this->tokens()
             ->where('expiry_date', '>', now())
+            ->orderBy('expiry_date', 'desc')
             ->value('token');
+
+        return $token;
     }
 
     public function setRememberToken($value)

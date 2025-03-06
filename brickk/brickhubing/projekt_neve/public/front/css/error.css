@@ -18,3 +18,6 @@ h1 {
     margin-bottom: 20px; /* Space below the heading */
     text-align: center; /* Center the text */
 }
+.btn-outline-primary {
+    font-family: 'pixelFont';
+}

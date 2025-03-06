@@ -55,13 +55,12 @@
 					</form>
 				@else
 					<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Login</a>
-					<a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton me-2">Register</a>
+					<a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton">Register</a>
 				@endif
 			</div>
 		</div>
 	</nav>
 </header>
-<!-- /navigation -->
 
 {{ $slot }}
 
