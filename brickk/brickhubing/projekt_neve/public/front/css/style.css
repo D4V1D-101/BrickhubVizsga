@@ -3591,6 +3591,7 @@ textarea.form-control-lg {
 }
 
 .nav-link {
+  white-space: nowrap;
   display: block;
   padding: 0.5rem 1rem;
   color: #0d6efd;
@@ -5909,7 +5910,12 @@ textarea.form-control-lg {
 }
 
 .text-center {
-  text-align: center !important;
+    display: flex;
+    flex-direction: column; /* Függőleges elrendezés */
+    align-items: center; /* Középre igazítás */
+    justify-content: center; /* Középre igazítás */
+    height: 100%; /* Magasság beállítása */
+    text-align: center !important;
 }
 
 .text-decoration-none {
@@ -5934,6 +5940,9 @@ textarea.form-control-lg {
 
 .text-capitalize {
   text-transform: capitalize !important;
+  white-space: nowrap;
+  max-width: 100%;
+  text-align: center;
 }
 
 .text-wrap {

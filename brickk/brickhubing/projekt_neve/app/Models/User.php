@@ -16,10 +16,6 @@ class User extends Authenticatable implements FilamentUser
 
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
-    const ROLES = [
-        self::ROLE_ADMIN => 'Admin',
-        self::ROLE_USER => 'User ',
-    ];
 
     protected $fillable = [
         'name',
@@ -37,21 +33,22 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
+    // Tokenok kapcsolata
     public function tokens()
     {
         return $this->hasMany(Token::class);
     }
 
-        public function getRememberToken()
+    // Emlékezési token lekérése
+    public function getRememberToken()
     {
-        $token = $this->tokens()
+        return $this->tokens()
             ->where('expiry_date', '>', now())
             ->orderBy('expiry_date', 'desc')
             ->value('token');
-
-        return $token;
     }
 
+    // Emlékezési token beállítása
     public function setRememberToken($value)
     {
         $existingToken = $this->tokens()
@@ -73,18 +70,27 @@ class User extends Authenticatable implements FilamentUser
         }
     }
 
+    // Emlékezési token neve
     public function getRememberTokenName()
     {
         return 'token';
     }
 
+    // Jogosultságok ellenőrzése a panelhez
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->can('view-admin', User::class);
+        return $this->isAdmin(); // Csak adminok férhetnek hozzá
     }
 
-    public function isAdmin()
+    // Admin jogosultság ellenőrzése
+    public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
+    }
+
+    // Jelszó hash-elése
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 }

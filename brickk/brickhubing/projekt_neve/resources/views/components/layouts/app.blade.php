@@ -47,16 +47,18 @@
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('blog') }}">News</a></li>
 					<li class="nav-item "><a wire:navigate class="nav-link " href="{{ route('faqs') }}">FAQ</a></li>
 				</ul>
-				@if (Auth::check())
-					<form method="GET" action="{{ route('user.logout') }}">
-						@csrf
-						<button type="submit" class="btn btn-outline-primary authbutton">Logout</button>
-						<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Admin</a>
-					</form>
-				@else
-					<a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Login</a>
-					<a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton">Register</a>
-				@endif
+                @if (Auth::check())
+    <form method="GET" action="{{ route('user.logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-outline-primary authbutton">Logout</button>
+        @if (Auth::user()->isAdmin())
+            <a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Admin</a>
+        @endif
+    </form>
+    <a href="{{ route('download.route') }}" class="btn btn-outline-primary authbutton">Download</a>
+@else
+    <a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton">Register</a>
+@endif
 			</div>
 		</div>
 	</nav>
@@ -82,7 +84,7 @@
 						</li>
 						<li class="mb-2"><a href="service-details.html">Logo Design</a>
 						</li>
-						<li class="mb-2"><a href="service-details.html">Graphic Design</a>
+						<li class="mb-2"><a href="service-details.html"> Design</a>
 						</li>
 						<li class="mb-2"><a href="service-details.html">SEO</a>
 						</li>

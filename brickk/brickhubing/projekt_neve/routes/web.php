@@ -12,6 +12,7 @@ use App\Livewire\ShowServicePage;
 use App\Livewire\ShowTeamPage;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DownloadController;
 
 Route::get('/', ShowHome::class)->name('home');
 Route::get('/games', ShowServicePage::class)->name('servicesPage');
@@ -27,3 +28,5 @@ Route::match(['get', 'post'], '/user-logout', function () {
     session()->regenerateToken();
     return redirect('/');
 })->name('user.logout');
+
+Route::get('/download', [DownloadController::class, 'download'])->name('download.route');
