@@ -56,6 +56,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigation([
+                'Home' => [
+                    'url' => route('home'), // Ellenőrizd, hogy a 'home' név helyes
+                    'icon' => 'heroicon-o-home',
+                ],
+                'Dashboard' => Pages\Dashboard::class,
             ]);
     }
 }

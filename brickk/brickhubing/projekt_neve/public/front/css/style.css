@@ -3602,6 +3602,9 @@ textarea.form-control-lg {
   .nav-link {
     transition: none;
   }
+  text-capitalize{
+    word-spacing: normal;
+  }
 }
 .nav-link:hover, .nav-link:focus {
   color: #0a58ca;
@@ -3796,6 +3799,9 @@ textarea.form-control-lg {
   }
   .navbar-expand-sm .navbar-toggler {
     display: none;
+  }
+  text-capitalize{
+    word-spacing: normal;
   }
 }
 @media (min-width: 768px) {

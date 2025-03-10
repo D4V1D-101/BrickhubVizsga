@@ -55,9 +55,10 @@
             <a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Admin</a>
         @endif
     </form>
-    <a href="{{ route('download.route') }}" class="btn btn-outline-primary authbutton">Download</a>
+
 @else
     <a href="{{ route('filament.admin.auth.register') }}" class="btn btn-outline-primary authbutton">Register</a>
+    <a href="{{ route('filament.admin.auth.login') }}" class="btn btn-outline-primary authbutton">Login</a>
 @endif
 			</div>
 		</div>

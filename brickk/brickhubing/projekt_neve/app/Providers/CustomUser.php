@@ -1,42 +1,45 @@
 <?php
 
-namespace App\Providers;
+namespace App\Http\Controllers;
 
-use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
-class CustomUser  extends EloquentUserProvider
+class CustomAuthController extends Controller
 {
-    public function validateCredentials(Authenticatable $user, array $credentials)
+    public function debugLogin(Request $request)
     {
-        $plain = $credentials['password'];
-        $hashedPassword = $user->getAuthPassword();
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        return $this->hasher->check($plain, $hashedPassword);
-    }
-
-    public function retrieveByToken($identifier, $token)
-    {
-        \Log::debug('Auth attempt with ID: ' . $identifier);
-        \Log::debug('Checking token: ' . $token);
-
-        $model = $this->createModel();
-        $user = $model->where($model->getAuthIdentifierName(), $identifier)->first();
+        // Ellenőrizzük, létezik-e a felhasználó az adatbázisban
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
-            \Log::debug('User  not found.');
-            return null;
+            return "Felhasználó nem található ezzel az email címmel: {$email}";
         }
 
-        $validToken = $user->tokens()
-            ->where('token', $token)
-            ->where('expiry_date', '>', now())
-            ->first();
-
-        if (!$validToken) {
-            \Log::debug('Invalid token or token expired.');
+        // Ellenőrizzük, hogy admin-e
+        if (!$user->isAdmin()) {
+            return "A felhasználó nem admin: {$email}";
         }
 
-        return $validToken ? $user : null;
+        // Ellenőrizzük a jelszót
+        if (!\Hash::check($password, $user->password)) {
+            return "Hibás jelszó a következő felhasználóhoz: {$email}";
+        }
+
+        // Próbáljuk meg a bejelentkezést
+        $credentials = [
+            'email' => $email,
+            'password' => $password
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return "Sikeres bejelentkezés mint: " . Auth::user()->name;
+        } else {
+            return "Auth::attempt sikertelen. Ellenőrizd a log fájlokat további információért.";
+        }
     }
 }

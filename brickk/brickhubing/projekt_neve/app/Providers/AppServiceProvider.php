@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Providers;
+
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Filament\Events\Auth\Login;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,11 +22,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Regisztráljuk a Filament kijelentkezési esemény kezelőjét
+        // Kijelentkezéskor töröljük a felhasználó összes tokenjét
         Event::listen(\Filament\Events\Auth\Logout::class, function ($event) {
-            // Törli a kilépett felhasználó összes tokenjét
             $event->user->tokens()->delete();
         });
-    }
 
+        // Bejelentkezéskor, ha nincs "remember me", töröljük a korábbi tokeneket
+        Event::listen(Login::class, function ($event) {
+            if (!$event->remember) {
+                $event->user->deleteRememberToken();
+            }
+        });
+    }
 }

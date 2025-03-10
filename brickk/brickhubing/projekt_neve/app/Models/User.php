@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser ;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,47 +33,49 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
+    protected $rememberTokenName = 'token';
+
     // Tokenok kapcsolata
     public function tokens()
     {
         return $this->hasMany(Token::class);
     }
 
-    // Emlékezési token lekérése
+    // Remember token lekérése - javítva
     public function getRememberToken()
     {
         return $this->tokens()
             ->where('expiry_date', '>', now())
-            ->orderBy('expiry_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->value('token');
     }
 
-    // Emlékezési token beállítása
+    // Remember token beállítása - javítva
     public function setRememberToken($value)
     {
-        $existingToken = $this->tokens()
-            ->where('device', 0) // Vagy a megfelelő device érték
-            ->where('expiry_date', '>', now())
-            ->first();
+        // Töröljük a felhasználó összes korábbi remember tokenét
+        $this->deleteRememberToken();
 
-        if ($existingToken) {
-            $existingToken->update([
-                'token' => $value,
-                'expiry_date' => now()->addDays(7) // Beállíthatod a megfelelő lejárati időt
-            ]);
-        } else {
-            $this->tokens()->create([
-                'device' => 0, // Állítsd be a megfelelő értéket
-                'token' => $value,
-                'expiry_date' => now()->addDays(7) // Beállíthatod a megfelelő lejárati időt
-            ]);
-        }
+        // Létrehozunk egy új tokent
+        $this->tokens()->create([
+            'device' => 0, // Asztali eszköz
+            'token' => $value,
+            'expiry_date' => now()->addDays(7) // 7 napos érvényesség
+        ]);
     }
 
-    // Emlékezési token neve
+    // Remember token törlése - új metódus
+    public function deleteRememberToken()
+    {
+        return $this->tokens()
+            ->where('device', 0)
+            ->delete();
+    }
+
+    // Remember token neve
     public function getRememberTokenName()
     {
-        return 'token';
+        return $this->rememberTokenName;
     }
 
     // Jogosultságok ellenőrzése a panelhez
@@ -88,9 +90,30 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === self::ROLE_ADMIN;
     }
 
-    // Jelszó hash-elése
-    public function setPasswordAttribute($value)
+    // Hibakeresési segédmetódus - add hozzá
+    public function attemptLogin($email, $password)
     {
-        $this->attributes['password'] = bcrypt($value);
+        // Naplózás fejlesztés közben
+        \Log::debug("Attempting login for: {$email}");
+
+        $user = self::where('email', $email)->first();
+
+        if (!$user) {
+            \Log::debug("User not found with email: {$email}");
+            return false;
+        }
+
+        if (!$user->isAdmin()) {
+            \Log::debug("User is not admin: {$email}");
+            return false;
+        }
+
+        if (!\Hash::check($password, $user->password)) {
+            \Log::debug("Password does not match for: {$email}");
+            return false;
+        }
+
+        \Log::debug("Login successful for: {$email}");
+        return true;
     }
 }
